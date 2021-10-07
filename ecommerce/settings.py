@@ -29,8 +29,8 @@ SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", get_random_secret_key())
 # DEBUG = os.getenv("DEBUG", "False") == "True"
 DEBUG = True
 
-ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS", "127.0.0.1,localhost").split(",")
-
+# ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS", "127.0.0.1,localhost").split(",")
+ALLOWED_HOSTS = ['atb-online.herokuapp.com','127.0.0.1']
 
 # Application definition
 
