@@ -1,0 +1,75 @@
+{% extends 'store/main.html' %}
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/checkout.css' %}">
+
+<script type="module" src="{% static 'js/checkoutView.js' %}"></script>
+
+{% endblock %}
+
+{% block content %}
+<section class="section cart" style="background-image: url({% static 'img/hero-background.png'%})">
+    <div class="checkout-container">
+        <div class="shipping-container">
+            <h2 class="section-title">Checkout</h2>
+            <hr class="hr-dark">
+            <div class="grid">
+                <div class="shipping-address-container">
+                    <p class="shipping">Shipping Address : </p>
+                    <hr class="hr-dark">
+                    <form class="shipping-form" action="" method="POST">
+                        {% csrf_token %}
+                        <label for="address" class="address">
+                            Address<br>
+                            <textarea name="address" id="address" cols="40" rows="3"></textarea><br>
+                        </label>
+                        <label for="city" class="city">
+                            City<br>
+                            <input type="text" name="city" id="city"><br>
+                        </label>
+                        <label for="state" class="state">
+                            State<br>
+                            <input type="text" name="state" id="state"><br>
+                        </label>
+                        <label for="pincode" class="pincode">
+                            Pincode<br>
+                            <input type="text" name="pincode" id="pincode"><br>
+                        </label>
+                        <hr class="hr-dark">
+                        <button class="btn btn-pay" type="submit">Continue to Payment</button>
+                    </form>
+                </div>
+                <div>
+                    <p class="cart-heading">Your Cart : </p>
+                    <hr class="hr-dark">
+                    <table style="width: 100%;">
+                        <thead>
+                            <th>Product</th>
+                            <th>Price</th>
+                            <th>Weight</th>
+                            <th>Quantity</th>
+                            <th>Total Cost</th>
+                        </thead>
+                        <tbody class="product-container">
+                            <tr>
+                                <td style="border-top:solid 2px var(--clr-primary);"></td>
+                                <td style="border-top:solid 2px var(--clr-primary);">Total</td>
+                                <td style="border-top:solid 2px var(--clr-primary);"></td>
+                                <td class="total-quantity">0</td>
+                                <td class="total-price">₹0</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</section>
+
+<script type="text/javascript">
+    var id = '{{request.user.id}}'
+    console.log(id)
+</script>
+{% endblock %}

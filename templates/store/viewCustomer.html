@@ -1,0 +1,42 @@
+{% extends 'store/main.html' %}
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/customer.css' %}">
+
+<script type="module" src="{% static 'js/CustomerView.js' %}"></script>
+
+{% endblock %}
+
+{% block content %}
+<section class="section customer" style="background-image: url({% static 'img/hero-background.png'%})">
+    <div class="customer-card" data-id='${customer.id}'>
+        <div class="customer-info-container">
+            <h2 class="section-title">Customer</h2>
+            <h4 class="customer-name">{{customer.name}}</h4>
+            <p class="customer-email">{{customer.email}}</p>
+        </div>
+        <div class="shipping-address-container">
+            <h2 class="container-heading">Shipping Address</h2>
+
+        </div>
+        <div class="active-order-container">
+            <h2 class="container-heading">Pending Orders</h2>
+            <div class="active-order-container">
+
+            </div>
+        </div>
+        <div class="order-history-container">
+            <h2 class="container-heading">Order History</h2>
+            <div class="order-history-container">
+
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<script type="text/javascript">
+    var customer = "{{customer.id}}"
+</script>
+{% endblock %}

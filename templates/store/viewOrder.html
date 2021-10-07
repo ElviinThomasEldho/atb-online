@@ -1,0 +1,58 @@
+{% extends 'store/main.html' %}
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/order.css' %}">
+
+<script type="module" src="{% static 'js/orderView.js' %}"></script>
+
+{% endblock %}
+
+{% block content %}
+<section class="section order" style="background-image: url({% static 'img/hero-background.png'%})">
+    <div class="order-card" data-id='${order.id}'>
+        <div class="order-info-container">
+            <h2 class="section-title">Order</h2>
+            <a class="btn btn-update" style="padding: 0;" href="{% url 'updateDeliveryStatus' order.id %}">Update
+                Order Status</a>
+            <h4 class="order-name"><strong>Order ID : </strong>{{order.id}}</h4>
+            <p class="order-date-ordered"><strong>Date Ordered : </strong>{{order.date_ordered.date}}</p>
+            <p class="order-status"><strong>Order Status : </strong>
+                {% if order.paymentStatus %}
+                Completed
+                {% else %}
+                Pending
+                {% endif %}
+            </p>
+            <p class="order-transaction-id"><strong>Transaction ID : </strong>{{order.transaction_id}}</p>
+            <p class="order-total"><strong>Total : </strong>
+            <p>
+        </div>
+        <div class="shipping-address-container">
+            <h2 class="container-heading">Shipping Address</h2>
+            <p><strong>Address :</strong> {{customer.address}}</p>
+            <p><strong>City :</strong> {{customer.city}}</p>
+            <p><strong>State :</strong> {{customer.state}}</p>
+            <p><strong>Zipcode :</strong> {{customer.zipcode}}</p>
+        </div>
+        <div class="items-container">
+            <h2 class="container-heading">Items</h2>
+            <table>
+                <thead>
+                    <th>ID</th>
+                    <th>Product</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Total</th>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+<script type="text/javascript">
+    var order = "{{order.id}}"
+</script>
+{% endblock %}

@@ -1,0 +1,49 @@
+{% extends 'store/main.html' %}
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/store.css' %}">
+
+<script type="module" src="{% static 'js/storeView.js' %}"></script>
+
+{% endblock %}
+
+{% block content %}
+<section class="hero" style="background-image: url({% static 'img/hero-background.png'%});">
+    <h1 class="hero-title">Annapoorneswari<br>Tasty Buds</h1>
+    <!-- <img src="{% static 'img/hero-background.png'%}" alt=""> -->
+</section>
+
+<section id="store" class="section section-neutral">
+    <h3 class="section-title">Our PRODUCTS</h3>
+    <p style="max-width: 70%; text-align: center;">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nobis,
+        cupiditate dignissimos
+        deleniti nam itaque
+        maxime debitis, ex minima explicabo consectetur autem nostrum! Hic soluta blanditiis dolores labore architecto
+        voluptatibus officia.</p>
+    <hr class="hr-dark">
+    <div class="filters">
+        <div class="filter">
+            <label for="category" class="filter-label">Product Category</label><br>
+            <select name="category" id="category">
+                <option value="all">All</option>
+                <option value="spices">Spices</option>
+                <option value="condiments">Condiments</option>
+            </select>
+        </div>
+        <div class="filter">
+            <label for="sort" class="filter-label">Sort by</label><br>
+            <select name="sort" id="sort">
+                <option value="low-to-high">Price Low to High</option>
+                <option value="high-to-low">Price High to Low</option>
+            </select>
+        </div>
+    </div>
+    <div class="store-container"></div>
+</section>
+
+<script type="text/javascript">
+    const length = 0;
+    var userID = '{{request.user.id}}'
+</script>
+{% endblock %}

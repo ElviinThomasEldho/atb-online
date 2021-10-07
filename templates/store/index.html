@@ -1,0 +1,57 @@
+{% extends 'store/main.html' %}
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/store.css' %}">
+
+<script type="module" src="{% static 'js/storeView.js' %}"></script>
+
+{% endblock %}
+
+{% block content %}
+
+<section class="hero" style="background-image: url({% static 'img/hero-background.png'%});">
+    <h1 class="hero-title">Annapoorneswari<br>Tasty Buds</h1>
+    <!-- <img src="{% static 'img/hero-background.png'%}" alt=""> -->
+</section>
+
+<section id="about" class="section section-dark">
+    <div class="section-content">
+        <h3 class="section-title">ABOUT us</h3>
+        <hr class="hr-primary">
+        <p class="section-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+            incididunt ut
+            labore et dolore magna aliqua. Massa massa ultricies mi quis. Dui nunc mattis enim ut. Facilisis volutpat
+            est
+            velit egestas dui id ornare arcu. Sed velit dignissim sodales ut eu sem integer vitae justo. </p>
+    </div>
+    <img src="https://images.unsplash.com/photo-1589536677029-c0aa1808fba6?ixid=MnwxMjA3fDB8MHxzZWFyY2h8OHx8c3BpY2VzfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
+        alt="About Image" class="section-image">
+</section>
+
+<section id="products" class="section section-primary">
+    <h3 class="section-title">Our Products</h3>
+    <hr class="hr-dark">
+    <div class="store-container"></div>
+</section>
+
+<section id="process" class="section section-neutral">
+    <img src="https://images.unsplash.com/photo-1566824099147-bef027d3a333?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTJ8fHNwaWNlc3xlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
+        alt="Process Image" class="section-image">
+    <div class="section-content">
+        <h3 class="section-title">Our Process</h3>
+        <hr class="hr-primary">
+        <p class="section-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+            incididunt ut labore et dolore magna aliqua. Massa massa ultricies mi quis. Dui nunc mattis enim ut.
+            Facilisis volutpat est velit egestas dui id ornare arcu. Sed velit dignissim sodales ut eu sem integer vitae
+            justo. </p>
+    </div>
+</section>
+
+
+<script type="text/javascript">
+    var length = 3;
+    var userID = '{{request.user.id}}';
+</script>
+
+{% endblock %}

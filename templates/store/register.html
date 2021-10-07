@@ -1,0 +1,40 @@
+{% extends 'store/main.html' %}
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/form.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="hero section-form" style="background-image: url({% static 'img/hero-background.png'%});">
+    <form class="form" method="POST" action="">
+        <h2 class="section-title">Register</h2>
+        {% csrf_token %}
+        <label>{{form.username.label}}</label><br>
+        {{form.username}}
+        <label>{{form.email.label}}</label><br>
+        {{form.email}}
+        <div class="row">
+            <div>
+                <label>{{form.first_name.label}}</label><br>
+                {{form.first_name}}
+            </div>
+            <div>
+                <label>{{form.last_name.label}}</label><br>
+                {{form.last_name}}
+            </div>
+        </div>
+        <label>{{form.password1.label}}</label><br>
+        {{form.password1}}
+        <label>Confirm Password</label><br>
+        {{form.password2}}
+        {{ form.errors }}
+
+        {% for message in messages %}
+        <p>{{message}}</p><br>
+        {% endfor %}
+        <button class="btn btn-login" type="submit">Register</button>
+        <p>Already Registered? <a style="color: var(--clr-primary);" href="{% url 'login' %}">Login Now!</a></p>
+    </form>
+</section>
+{% endblock %}

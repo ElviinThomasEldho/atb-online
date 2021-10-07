@@ -1,0 +1,142 @@
+nav {
+  background: none;
+  background-color: var(--clr-dark);
+}
+
+.cart-container {
+  position: relative;
+
+  width: 100%;
+  padding: 50px;
+  margin: 50px;
+
+  background-color: var(--clr-neutral);
+}
+
+.cart-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  height: 80px;
+  width: 100%;
+  margin-block: 30px;
+
+  color: white;
+  background-color: var(--clr-dark);
+}
+
+.cart-item > * {
+  margin-inline: 5px;
+}
+
+.checkout {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  font-size: 30px;
+}
+
+.checkout > * {
+  margin-inline: 20px;
+}
+
+.total-price {
+  font-weight: bold;
+  color: var(--clr-primary);
+}
+
+.btn-checkout {
+  color: white;
+  background-color: var(--clr-dark);
+}
+
+.product-image {
+  width: auto;
+  height: 100%;
+  margin-inline: 0;
+}
+
+.product-name {
+  grid-column-start: 1;
+  grid-column-end: 3;
+  font-size: 25px;
+
+  width: 100%;
+}
+
+.product-category {
+  font-size: 24px;
+  color: var(--clr-primary);
+}
+
+.product-price,
+.item-price {
+  font-size: 24px;
+  font-weight: bold;
+  color: var(--clr-primary);
+}
+
+.product-info {
+  display: flex;
+  justify-content: space-between;
+  grid-column-start: 3;
+  grid-column-end: 4;
+
+  width: 50%;
+
+  font-size: 24px;
+  font-weight: bold;
+}
+
+@media screen and (max-width: 760px) {
+  .cart-item > *,
+  .product-price {
+    font-size: 14px;
+    margin-inline: 5px;
+  }
+
+  .product-image {
+    width: 80%;
+    height: auto;
+    margin-inline: 0;
+  }
+
+  .logo {
+    color: var(--clr-dark);
+    background-color: var(--clr-primary);
+  }
+
+  nav {
+    background-color: rgba(0, 0, 0, 0);
+  }
+
+  .nav-buttons > * {
+    color: var(--clr-primary);
+    background-color: var(--clr-dark);
+  }
+
+  .section {
+    padding: 0;
+  }
+
+  .checkout {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .checkout > * {
+    margin-block: 10px;
+  }
+
+  .section-title {
+    margin-left: 20px;
+  }
+
+  .cart-container {
+    margin: 0px;
+
+    padding-top: 150px;
+  }
+}

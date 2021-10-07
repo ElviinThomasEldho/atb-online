@@ -1,0 +1,31 @@
+{% extends 'store/main.html' %}
+{% load static %}
+
+{% block head %}
+
+<link rel="stylesheet" href="{% static 'css/cart.css' %}">
+
+<script type="module" src="{% static 'js/cartView.js' %}"></script>
+
+{% endblock %}
+
+{% block content %}
+<section class="section cart" style="background-image: url({% static 'img/hero-background.png'%})">
+    <div class="cart-container">
+        <h2 class="section-title">Your Cart</h2>
+        <div class="checkout">
+            <p class="total-price">Total: ₹0</p>
+
+            <button class="btn clear-cart">Clear Cart</button>
+            <a href="{% url 'checkout' %}" class="btn btn-checkout">Checkout</a>
+        </div>
+        <hr class="hr-dark">
+        <div class="product-container">
+        </div>
+    </div>
+</section>
+
+<script>
+    var userID = "{{ request.user.id }}";
+</script>
+{% endblock %}

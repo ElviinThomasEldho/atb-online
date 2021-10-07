@@ -1,0 +1,189 @@
+{% load static %}
+<!doctype html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Annapoorneswari Tasty Buds Store 🏪</title>
+    <meta name="description" content="A simple E-Commerce Website">
+    <meta name="author" content="Elviin Thomas Eldho">
+
+    <meta property="og:title" content="A Basic E-Commerce Template">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.ecommerce.com/a-basic-ecommerce-template/">
+    <meta property="og:description" content="A simple E-Commerce Template">
+    <meta property="og:image" content="image.png">
+
+    <link rel="icon" href="/favicon.ico">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Arvo:ital,wght@0,400;0,700;1,400;1,700&family=Lilita+One&display=swap"
+        rel="stylesheet">
+
+    <script src="https://kit.fontawesome.com/1acb789b0f.js" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <link rel="stylesheet" href="{% static 'css/admin.css' %}">
+
+    <script type="module" src="{% static 'js/adminView.js' %}"></script>
+
+</head>
+
+<body style="background-image: url({% static 'img/hero-background.png'%});">
+
+    <section class="section-panel">
+        <h2 class="section-title">Admin Panel</h2>
+        <hr class="hr-dark">
+        <div class="tab-container">
+            <div class="tab" data-tab-id='1'>
+                <p class="tab-title">PRODUCTS</p>
+            </div>
+            <div class="tab" data-tab-id='2'>
+                <p class="tab-title">CUSTOMERS</p>
+            </div>
+            <div class="tab" data-tab-id='3'>
+                <p class="tab-title">ORDERS</p>
+            </div>
+            <div class="tab" data-tab-id='4'>
+                <p class="tab-title">REPORTS</p>
+            </div>
+        </div>
+        <div class="content-container">
+            <div class="content content-active" data-content-id='1'>
+                <div class="row">
+                    <button class="btn btn-dark btn-add-product">Add Product</button>
+                    <button class="btn btn-dark btn-update-stock">Update Stock</button>
+                </div>
+                <table>
+                    <thead>
+                        <th>ID</th>
+                        <th>Product Name</th>
+                        <th>Category</th>
+                        <th>Quantity</th>
+                        <th>Price</th>
+                        <th>Stock</th>
+                        <th>Edit</th>
+                        <th>Delete</th>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+
+                <div class="overlay hidden">
+                </div>
+
+                <div class="modal product-modal hidden">
+                    <form method="POST" action="/admin-panel/update-stock/" class="form-update-stock hidden" enctype="">
+                        {% csrf_token %}
+                        <h4>Update Stock</h4>
+                        <label for="product">Product</label><br>
+                        <select name="product" id="product">
+
+                        </select><br>
+                        <label for="stock">Stock</label><br>
+                        <input type="number" name="stock" id="stock"><br>
+                        <label for="function">Action</label><br>
+                        <select name="function" id="function">
+                            <option value="add">Add Stock</option>
+                            <option value="minus">Deduct Stock</option>
+                        </select><br>
+                        <button class="btn" type="submit">Update</button>
+                    </form>
+                    <form method="POST" action="/admin-panel/add-product/" class="form-add-product hidden"
+                        enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <h4>Add Product</h4>
+                        <label for="image">Image</label><br>
+                        {{addProductForm.image}}<br>
+                        <label for="name">Product</label><br>
+                        {{addProductForm.name}}<br>
+                        <label for="category">Category</label><br>
+                        {{addProductForm.category}}<br>
+                        <label for="desc">Description</label><br>
+                        {{addProductForm.desc}}<br>
+                        <label for="quantity">Quantity</label><br>
+                        {{addProductForm.quantity}}<br>
+                        <label for="price">Price</label><br>
+                        {{addProductForm.price}}<br>
+                        <label for="stock">Stock</label><br>
+                        {{addProductForm.stock}}<br>
+                        <button class="btn" type="submit">Add</button>
+                    </form>
+                    <form method="POST" class="form-edit-product hidden" action="" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <h4>Edit Product</h4>
+                        <label for="image">Image</label><br>
+                        {{addProductForm.image}}<br>
+                        <label for="name">Product</label><br>
+                        {{addProductForm.name}}<br>
+                        <label for="category">Category</label><br>
+                        {{addProductForm.category}}<br>
+                        <label for="desc">Description</label><br>
+                        {{addProductForm.desc}}<br>
+                        <label for="quantity">Quantity</label><br>
+                        {{addProductForm.quantity}}<br>
+                        <label for="price">Price</label><br>
+                        {{addProductForm.price}}<br>
+                        <label for="stock">Stock</label><br>
+                        {{addProductForm.stock}}<br>
+                        <button type="submit">Edit</button>
+                    </form>
+                </div>
+            </div>
+            <div class="content" data-content-id='2'>
+                <table>
+                    <thead>
+                        <th>ID</th>
+                        <th>Full Name</th>
+                        <th>Email Address</th>
+                        <th>View</th>
+                        <th>Delete</th>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+            <div class="content" data-content-id='3'>
+                <h2 class="container-heading">Pending Orders</h2>
+                <table>
+                    <thead>
+                        <th>ID</th>
+                        <th>Customer</th>
+                        <th>Date Ordered</th>
+                        <th>Items</th>
+                        <th>Total</th>
+                        <th>Payment</th>
+                        <th>View</th>
+                        <th>Delete</th>
+                    </thead>
+                    <tbody class="pending-order-container">
+                    </tbody>
+                </table>
+                <h2 class="container-heading">Completed Orders</h2>
+                <table>
+                    <thead>
+                        <th>ID</th>
+                        <th>Customer</th>
+                        <th>Date Ordered</th>
+                        <th>Items</th>
+                        <th>Total</th>
+                        <th>Payment</th>
+                        <th>View</th>
+                        <th>Delete</th>
+                    </thead>
+                    <tbody class="completed-order-container">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+</body>
+
+</html>

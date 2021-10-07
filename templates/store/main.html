@@ -1,0 +1,99 @@
+{% load static %}
+<!doctype html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Annapoorneswari Tasty Buds Store 🏪</title>
+    <meta name="description" content="A simple E-Commerce Website">
+    <meta name="author" content="Elviin Thomas Eldho">
+
+    <meta property="og:title" content="A Basic E-Commerce Template">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.ecommerce.com/a-basic-ecommerce-template/">
+    <meta property="og:description" content="A simple E-Commerce Template">
+    <meta property="og:image" content="image.png">
+
+    <link rel="icon" href="/favicon.ico">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Arvo:ital,wght@0,400;0,700;1,400;1,700&family=Lilita+One&display=swap"
+        rel="stylesheet">
+
+    <script src="https://kit.fontawesome.com/1acb789b0f.js" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    {% block head %}
+
+    {% endblock %}
+
+</head>
+
+<body>
+    <nav>
+        <div class="logo">
+            <a href="{% url 'home' %}">
+                <h2 class="logo-text">ATB</h2>
+            </a>
+        </div>
+        <div class="nav-buttons">
+            {% if request.user.is_authenticated %}
+            <p class="user-name"> Hi {{request.user.first_name}}
+                <a href="{% url 'logout' %}"><i class="fas fa-sign-out-alt"
+                        style="font-size: 15px; margin-inline-start: 10px;"></i></a>
+            </p>
+            {% endif %}
+            <a href="{% url 'store' %}" class="btn btn-icon"><i class="fas fa-store"></i></a>
+            <a href="{% url 'cart' %}" class="btn btn-icon"><i class="fas fa-shopping-cart"></i></a>
+            {% if request.user.is_authenticated %}
+            {% else %}
+            <a href="{% url 'login' %}" class="btn btn-icon"><i class="fas fa-user"></i></a>
+            {% endif %}
+        </div>
+    </nav>
+
+    <div class="overlay hidden">
+    </div>
+
+    <div class="modal hidden">
+        <h1 class="modal-title">CONTINUE</h1>
+        <hr class="hr-primary">
+        <p class="modal-text">If you are a returning customer, login or if you a new customer, register to continue
+            shopping<br>
+            <a class="close-modal">Remind me later</a>
+        </p>
+        <div class="row">
+            <a href="{% url 'login' %}" class="btn btn-modal">Login</a>
+            <p style="font-weight:bold;color: var(--clr-primary);">OR</p>
+            <a href="{% url 'register' %}" class="btn btn-modal">Register</a>
+        </div>
+    </div>
+
+    <div class="notification-container">
+
+    </div>
+
+    {% block content %}
+
+    {% endblock %}
+
+    <section id="contact" class="section section-dark">
+        <h2 class="section-title">CONTACT us</h2>
+        <hr class="hr-vertical">
+        <form action="" class="contact-form">
+            <input type="text" placeholder="Your Name">
+            <input type="email" placeholder="Your Email Address">
+            <textarea name="query" id="query" cols="30" rows="5" placeholder="What would you like to know?"></textarea>
+            <button class="btn btn-submit" type="submit">Send</button>
+        </form>
+    </section>
+</body>
+
+</html>
