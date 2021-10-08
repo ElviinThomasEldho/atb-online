@@ -10,6 +10,8 @@ from .forms import RegisterForm
 from api.forms import *
 from api.models import Customer, Order, OrderItem
 
+from django.contrib.auth.models import User
+
 from paytm import checksum
 
 from django.views.decorators.csrf import csrf_exempt
@@ -78,20 +80,24 @@ def registerPage(request):
     if request.method == "POST":
         form = RegisterForm(request.POST)
         if form.is_valid():
-            user = form.save()
-
-            username = form.cleaned_data['username']
             email = form.cleaned_data['email']
             name = form.cleaned_data['first_name'] + ' ' + form.cleaned_data['last_name']
             password = form.cleaned_data['password1']
-            
-            Customer.objects.create(user = user,name = name, email = email)
+            print(User.objects.filter(username=email).exists())
+            if (User.objects.filter(username=email).exists()):
+                messages.info(request, 'An Account with this Email Address already exists')
+            else:
+                user = form.save()
+                user.username = user.email
+                user.save()
 
-            user = authenticate(request, username=username, password=password)
+                Customer.objects.create(user = user,name = name, email = email)
 
-            if user is not None:
-                login(request, user)
-                return redirect('home')
+                user = authenticate(request, username=email, password=password)
+
+                if user is not None:
+                    login(request, user)
+                    return redirect('home')
 
     context = {
         'form': form,

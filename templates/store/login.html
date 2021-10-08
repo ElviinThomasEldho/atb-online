@@ -10,8 +10,8 @@
     <form class="form" method="POST" action="">
         <h2 class="section-title">Login</h2>
         {% csrf_token %}
-        <label for="username">Username</label>
-        <input type="text" name="username" id="username">
+        <label for="username">Email Address</label>
+        <input type="email" name="username" id="username">
         <label for="password">Password</label>
         <input type="password" name="password" id="password">
         {% for message in messages %}

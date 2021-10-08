@@ -10,10 +10,6 @@
     <form class="form" method="POST" action="">
         <h2 class="section-title">Register</h2>
         {% csrf_token %}
-        <label>{{form.username.label}}</label><br>
-        {{form.username}}
-        <label>{{form.email.label}}</label><br>
-        {{form.email}}
         <div class="row">
             <div>
                 <label>{{form.first_name.label}}</label><br>
@@ -24,6 +20,8 @@
                 {{form.last_name}}
             </div>
         </div>
+        <label>{{form.email.label}}</label><br>
+        {{form.email}}
         <label>{{form.password1.label}}</label><br>
         {{form.password1}}
         <label>Confirm Password</label><br>
@@ -33,6 +31,7 @@
         {% for message in messages %}
         <p>{{message}}</p><br>
         {% endfor %}
+
         <button class="btn btn-login" type="submit">Register</button>
         <p>Already Registered? <a style="color: var(--clr-primary);" href="{% url 'login' %}">Login Now!</a></p>
     </form>
