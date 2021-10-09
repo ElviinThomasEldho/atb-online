@@ -274,4 +274,4 @@ def paymentStatus(request):
             print('Order was Not Successful : ',response_dict['RESPMSG'])
 
 
-    return render(request, 'store/paytmStatus.html',{'response':response_dict})
+    return render(request, 'store/paytmstatus.html',{'response':response_dict})
