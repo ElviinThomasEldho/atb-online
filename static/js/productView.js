@@ -1,4 +1,10 @@
-import { fetchData, openModal, renderNotification } from "./helper.js";
+import {
+  fetchData,
+  openModal,
+  renderNotification,
+  renderOutOfStock,
+  renderStockLeft,
+} from "./helper.js";
 
 const productView = async (id) => {
   const parentContainer = document.querySelector(".product");
@@ -17,22 +23,28 @@ const productView = async (id) => {
                 <h4 class="product-name">${
                   product.name
                 }<p class="product-category">
-                ${product.category}</p></h4>
+                ${product.category}</p><br><p>${
+      product.virtualStock <= 0 ? "Out of Stock" : ""
+    }</p></h4>
                 <div class="product-info">
                     <p class="product-price">₹${product.price}</p>
                     <p>|</p>
                     <p class="product-quantity">${product.quantity}g</p>
                 </div>
-                <p class="product-desc">
-                ${product.desc}
-                </p>
+                <div class="product-desc">
+                ${product.desc} 
+                </div>
                 <div class="btns-quantity">
                     <button class="btn btn-quantity quantity-add" data-func="add"><i class="fas fa-plus"></i></button>
                     <p class="quantity">1</p>
                     <button class="btn btn-quantity quantity-minus" data-func="minus"><i class="fas fa-minus"></i></button>
                 </div>
-                <button class="btn buy-now">Buy Now</button>
-                <button class="btn add-to-cart">Add to Cart</button>
+                <button class="btn ${
+                  product.virtualStock <= 0 ? "out-of-stock" : "buy-now"
+                }">Buy Now</button>
+                <button class="btn ${
+                  product.virtualStock <= 0 ? "out-of-stock" : "add-to-cart"
+                }">Add to Cart</button>
             </div>
         </div>
     `;
@@ -45,6 +57,15 @@ const productView = async (id) => {
     parentContainer.insertAdjacentHTML("beforeend", markup);
   };
 
+  const outOfStock = async function (product) {
+    if (userID == "None") {
+      openModal();
+      return;
+    }
+
+    renderOutOfStock(product.id);
+  };
+
   const addToCart = async function () {
     if (userID == "None") {
       openModal();
@@ -53,6 +74,11 @@ const productView = async (id) => {
 
     const orderItems = await fetchData(`/api/get-cart/${userID}`);
     const quantityLabel = document.querySelector(".quantity");
+
+    if (product.virtualStock - quantityLabel.textContent < 0) {
+      renderStockLeft(product.id);
+      return;
+    }
 
     if (orderItems.some((item) => item.product == product.id)) {
       const existingItem = orderItems.filter(
@@ -96,6 +122,13 @@ const productView = async (id) => {
       return;
     }
 
+    const quantityLabel = document.querySelector(".quantity");
+
+    if (product.virtualStock - quantityLabel.textContent < 0) {
+      renderStockLeft(product.id);
+      return;
+    }
+
     let order = await fetchData(`/api/get-order/${userID}`);
 
     await fetch(`/api/order-delete/${order.id}`, {
@@ -108,7 +141,6 @@ const productView = async (id) => {
     });
 
     order = await fetchData(`/api/get-order/${userID}`);
-    const quantityLabel = document.querySelector(".quantity");
 
     const orderItem = {
       product: product.id,
@@ -148,13 +180,24 @@ const productView = async (id) => {
     });
   };
 
+  const addHandlerOutOfStock = function () {
+    const btnAddToCart = document.querySelectorAll(".out-of-stock");
+    btnAddToCart.forEach((btn) =>
+      btn.addEventListener("click", async function (e) {
+        await outOfStock(e.target.closest(".product-card").dataset.id);
+      })
+    );
+  };
+
   const addHandlerAddToCart = function () {
     const btnAddToCart = document.querySelector(".add-to-cart");
+    if (btnAddToCart == null) return;
     btnAddToCart.addEventListener("click", addToCart);
   };
 
   const addHandlerBuyNow = function () {
     const btnBuyNow = document.querySelector(".buy-now");
+    if (btnBuyNow == null) return;
     btnBuyNow.addEventListener("click", buyNow);
   };
 
@@ -179,5 +222,6 @@ const productView = async (id) => {
   addHandlerAddToCart();
   addHandlerBuyNow();
   addHandlerUpdateQuantity();
+  addHandlerOutOfStock();
 };
 productView(productID);

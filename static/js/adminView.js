@@ -61,8 +61,10 @@ const productView = async function () {
     formEditProduct.querySelector("#id_desc").value = product.desc;
     formEditProduct.querySelector("#id_quantity").value = product.quantity;
     formEditProduct.querySelector("#id_price").value = product.price;
-    formEditProduct.querySelector("#id_stock").value = product.stock;
-
+    formEditProduct.querySelector("#id_virtualStock").value =
+      product.virtualStock;
+    formEditProduct.querySelector("#id_physicalStock").value =
+      product.physicalStock;
     formEditProduct.addEventListener("submit", async function (e) {
       closeModal();
     });
@@ -152,7 +154,8 @@ const productView = async function () {
             <td>${product.category}</td>
             <td>${product.quantity}g</td>
             <td>₹${product.price}</td>
-            <td>${product.stock}</td>
+            <td>${product.virtualStock}</td>
+            <td>${product.physicalStock}</td>
             <td>
                 <button class="btn btn-icon btn-product-edit"><i
                         class="fas fa-pencil-alt"></i></button>
@@ -272,18 +275,20 @@ const orderView = async function () {
 
   const render = function () {
     orders.forEach(async (order) => {
-      if (order.deliveryStatus == true) return;
-      const markup = await generateMarkup(order);
-      _parentElement
-        .querySelector(".pending-order-container")
-        .insertAdjacentHTML("beforeend", markup);
+      if (order.deliveryStatus == false && order.paymentStatus == true) {
+        const markup = await generateMarkup(order);
+        _parentElement
+          .querySelector(".pending-order-container")
+          .insertAdjacentHTML("beforeend", markup);
+      }
     });
     orders.forEach(async (order) => {
-      if (order.deliveryStatus == false) return;
-      const markup = await generateMarkup(order);
-      _parentElement
-        .querySelector(".completed-order-container")
-        .insertAdjacentHTML("beforeend", markup);
+      if (order.deliveryStatus == true && order.paymentStatus == true) {
+        const markup = await generateMarkup(order);
+        _parentElement
+          .querySelector(".completed-order-container")
+          .insertAdjacentHTML("beforeend", markup);
+      }
     });
   };
 

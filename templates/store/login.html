@@ -18,6 +18,7 @@
         <p>{{message}}</p><br>
         {% endfor %}
         <button class="btn btn-login" type="submit">Login</button>
+        <a style="color: var(--clr-primary);" href="{% url 'reset_password' %}">Forgot Password?</a>
         <p style="padding: 20px;">Not Registered?
             <a style="color: var(--clr-primary);" href="{% url 'register' %}">Register Now!</a>
         </p>

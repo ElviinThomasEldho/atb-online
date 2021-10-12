@@ -45,6 +45,7 @@ const CheckoutView = async () => {
     });
 
     window.location.href = `/payment/${order.id}/`;
+    // window.location.href = `/payment-status/`;
   };
 
   const render = async function () {

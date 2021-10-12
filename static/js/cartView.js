@@ -114,6 +114,8 @@ const cartView = async function () {
   const csrftoken = getCookie("csrftoken");
 
   const render = async function () {
+    await getCart();
+
     parentContainer.innerHTML = "";
     console.log(orderItems);
     if (orderItems.length > 0) {
@@ -166,6 +168,27 @@ const cartView = async function () {
     textTotal.textContent = `Total: ₹${total}`;
   };
 
+  const checkStock = async function () {
+    const stockContainer = document.querySelector(".stock-container");
+
+    await orderItems.forEach(async (item) => {
+      const product = await fetchData(`/api/product-detail/${item.product}`);
+      if (product.virtualStock < item.quantity) {
+        const markup = `<li>Not Enough Stock of ${product.name}</li>`;
+        stockContainer.insertAdjacentHTML("beforeend", markup);
+
+        await fetch(`/api/order-item-delete/${item.id}/`, {
+          method: "DELETE",
+          headers: {
+            "Content-type": "application/json",
+            "X-CSRFToken": csrftoken,
+          },
+          body: JSON.stringify(item),
+        });
+      }
+    });
+  };
+
   if (userID == "None") {
     const markup = `
     <p class="modal-text">If you are a returning customer, login or if you a new customer, register to continue
@@ -183,6 +206,7 @@ const cartView = async function () {
     return;
   } else {
     await getCart();
+    await checkStock();
     await render();
   }
 };

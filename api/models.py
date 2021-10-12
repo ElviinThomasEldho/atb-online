@@ -18,7 +18,8 @@ class Product(models.Model):
         'Product Category', max_length=255, choices=CATEGORY, null=True)
     quantity = models.FloatField('Quantity (in g)',null=True)
     price = models.FloatField('Product Price',null=True)
-    stock = models.IntegerField('Product Stock', null=True)
+    physicalStock = models.IntegerField('Physical Stock', null=True)
+    virtualStock = models.IntegerField('Virtual Stock', null=True)
 
     def __str__(self):
         return '{id} | {name}'.format(id=self.id, name=self.name)

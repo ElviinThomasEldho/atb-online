@@ -68,7 +68,8 @@
                         <th>Category</th>
                         <th>Quantity</th>
                         <th>Price</th>
-                        <th>Stock</th>
+                        <th>Virtual Stock</th>
+                        <th>Physical Stock</th>
                         <th>Edit</th>
                         <th>Delete</th>
                     </thead>
@@ -112,8 +113,10 @@
                         {{addProductForm.quantity}}<br>
                         <label for="price">Price</label><br>
                         {{addProductForm.price}}<br>
-                        <label for="stock">Stock</label><br>
-                        {{addProductForm.stock}}<br>
+                        <label for="physicalStock">Virtual Stock</label><br>
+                        {{addProductForm.virtualStock}}<br>
+                        <label for="virtualStock">Physical Stock</label><br>
+                        {{addProductForm.physicalStock}}<br>
                         <button class="btn" type="submit">Add</button>
                     </form>
                     <form method="POST" class="form-edit-product hidden" action="" enctype="multipart/form-data">
@@ -131,8 +134,10 @@
                         {{addProductForm.quantity}}<br>
                         <label for="price">Price</label><br>
                         {{addProductForm.price}}<br>
-                        <label for="stock">Stock</label><br>
-                        {{addProductForm.stock}}<br>
+                        <label for="physicalStock">Virtual Stock</label><br>
+                        {{addProductForm.virtualStock}}<br>
+                        <label for="virtualStock">Physical Stock</label><br>
+                        {{addProductForm.physicalStock}}<br>
                         <button type="submit">Edit</button>
                     </form>
                 </div>
@@ -179,6 +184,54 @@
                         <th>Delete</th>
                     </thead>
                     <tbody class="completed-order-container">
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="content content-active" data-content-id='4'>
+                <h2 class="container-heading">Daily</h2>
+                <table>
+                    <thead>
+                        <th>ID</th>
+                        <th>Customer</th>
+                        <th>Date Ordered</th>
+                        <th>Items</th>
+                        <th>Total</th>
+                        <th>Payment</th>
+                        <th>View</th>
+                        <th>Delete</th>
+                    </thead>
+                    <tbody class="daily-report-container">
+                    </tbody>
+                </table>
+                <h2 class="container-heading">Monthly</h2>
+                <table>
+                    <thead>
+                        <th>ID</th>
+                        <th>Customer</th>
+                        <th>Date Ordered</th>
+                        <th>Items</th>
+                        <th>Total</th>
+                        <th>Payment</th>
+                        <th>View</th>
+                        <th>Delete</th>
+                    </thead>
+                    <tbody class="monthly-report-container">
+                    </tbody>
+                </table>
+
+                <h2 class="container-heading">All</h2>
+                <table>
+                    <thead>
+                        <th>ID</th>
+                        <th>Customer</th>
+                        <th>Date Ordered</th>
+                        <th>Items</th>
+                        <th>Total</th>
+                        <th>Payment</th>
+                        <th>View</th>
+                    </thead>
+                    <tbody class="all-report-container">
                     </tbody>
                 </table>
             </div>

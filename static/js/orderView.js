@@ -38,7 +38,6 @@ const orderView = function (id) {
     customer = await fetchData(`/api/customer-detail/${order.customer}/`);
     orderItems = await fetchData(`/api/get-order-items/${order.id}/`);
     orderItems.filter((item) => item.order == id);
-    renderShipping();
     renderItems();
   };
   init();

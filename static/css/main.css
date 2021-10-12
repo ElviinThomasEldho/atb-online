@@ -51,8 +51,7 @@ img {
   width: 90px;
   height: 90px;
 
-  margin-left: 20px;
-  margin-top: 20px;
+  margin: 20px;
 
   background-color: var(--clr-neutral);
   border-radius: 50%;
@@ -228,7 +227,7 @@ hr {
   padding-block: 30px;
 }
 
-.contact-form {
+#contact-form {
   display: flex;
   flex-flow: column nowrap;
   align-items: center;
@@ -241,8 +240,8 @@ textarea {
   margin-bottom: 10px;
 }
 
-.contact-form > input,
-.contact-form > textarea {
+#contact-form > input,
+#contact-form > textarea {
   font-family: "Arvo", serif;
   font-size: 15px;
   padding: 10px;
@@ -251,7 +250,7 @@ textarea {
   border: solid var(--clr-primary) 3px;
 }
 
-.contact-form > button {
+#contact-form > button {
   color: var(--clr-dark);
   background-color: var(--clr-primary);
 }

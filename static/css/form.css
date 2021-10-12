@@ -30,7 +30,8 @@
 
 .form input {
   width: 80%;
-  height: 24px;
+  min-height: 24px;
+  margin-inline: auto;
 
   padding: 5px 10px;
   margin-block: 5px 20px;

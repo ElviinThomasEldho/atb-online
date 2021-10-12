@@ -39,3 +39,41 @@ export const renderNotification = async function (productID, quantity) {
     notification.remove();
   }, 2300);
 };
+
+export const renderOutOfStock = async function (productID) {
+  const product = await fetchData(`/api/product-detail/${productID}`);
+  const parentContainer = document.querySelector(".notification-container");
+  const markup = `<div class="notification">
+  <p class="notification-quantity">Sorry!</p>
+  <p class="notification-product-name">${product.name}</p>
+  is out of stock</p></div>`;
+  parentContainer.insertAdjacentHTML("afterbegin", markup);
+  const notification = parentContainer.querySelector(".notification");
+  console.log(notification);
+  setTimeout(function () {
+    notification.style.opacity = 0;
+  }, 2000);
+
+  setTimeout(function () {
+    notification.remove();
+  }, 2300);
+};
+
+export const renderStockLeft = async function (productID) {
+  const product = await fetchData(`/api/product-detail/${productID}`);
+  const parentContainer = document.querySelector(".notification-container");
+  const markup = `<div class="notification">
+  <p class="notification-quantity">Sorry!</p>
+  <p class="notification-product-name">Only ${product.virtualStock} ${product.name}</p>
+  is left in stock</p></div>`;
+  parentContainer.insertAdjacentHTML("afterbegin", markup);
+  const notification = parentContainer.querySelector(".notification");
+  console.log(notification);
+  setTimeout(function () {
+    notification.style.opacity = 0;
+  }, 2000);
+
+  setTimeout(function () {
+    notification.remove();
+  }, 2300);
+};

@@ -44,7 +44,8 @@ const CheckoutView = async () => {
       body: JSON.stringify(customer),
     });
 
-    window.location.href = `/payment/${order.id}/`;
+    // window.location.href = `/payment/${order.id}/`;
+    window.location.href = `/payment-status/`;
   };
 
   const render = async function () {

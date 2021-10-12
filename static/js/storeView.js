@@ -1,4 +1,9 @@
-import { fetchData, openModal, renderNotification } from "./helper.js";
+import {
+  fetchData,
+  openModal,
+  renderNotification,
+  renderOutOfStock,
+} from "./helper.js";
 
 const storeView = async function (length = 0) {
   const parentContainer = document.querySelector(".store-container");
@@ -13,8 +18,12 @@ const storeView = async function (length = 0) {
             <a href="/store/product/${
               product.id
             }/" class="btn btn-icon view"><i class="fas fa-eye"></i></a>
-            <a class="btn btn-icon add-to-cart"><i class="fas fa-cart-plus"></i></a>
-            <a class="btn btn-icon buy-now"><i class="fas fa-shopping-bag"></i></a>
+            <a class="btn btn-icon ${
+              product.virtualStock <= 0 ? "out-of-stock" : "add-to-cart"
+            }"><i class="fas fa-cart-plus"></i></a>
+            <a class="btn btn-icon ${
+              product.virtualStock <= 0 ? "out-of-stock" : "buy-now"
+            }"><i class="fas fa-shopping-bag"></i></a>
         </div>
         <img src="${
           product.image
@@ -33,6 +42,15 @@ const storeView = async function (length = 0) {
     </div>
     `;
     return markup;
+  };
+
+  const outOfStock = async function (product) {
+    if (userID == "None") {
+      openModal();
+      return;
+    }
+
+    renderOutOfStock(product);
   };
 
   const addToCart = async function (product) {
@@ -206,6 +224,15 @@ const storeView = async function (length = 0) {
     );
   };
 
+  const addHandlerOutOfStock = function () {
+    const btnAddToCart = document.querySelectorAll(".out-of-stock");
+    btnAddToCart.forEach((btn) =>
+      btn.addEventListener("click", async function (e) {
+        await outOfStock(e.target.closest(".product-card").dataset.id);
+      })
+    );
+  };
+
   const addHandlerSort = function () {
     btnSort.addEventListener("click", function (e) {
       sortProducts(e.target.value);
@@ -229,6 +256,7 @@ const storeView = async function (length = 0) {
   await render(length === 0 ? products : products.slice(0, length));
   addHandlerAddToCart();
   addHandlerBuyNow();
+  addHandlerOutOfStock();
   if (btnSort) addHandlerSort();
   if (btnCategory) addHandlerCategory();
 };

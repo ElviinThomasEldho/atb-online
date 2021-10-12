@@ -12,10 +12,10 @@ const customerView = function (id) {
   const renderShipping = function () {
     const parentElement = document.querySelector(".shipping-address-container");
     const markup = `
-    <p><strong>Address :</strong> ${shipping.address}</p>
-    <p><strong>City :</strong> ${shipping.city}</p>
-    <p><strong>State :</strong> ${shipping.state}</p>
-    <p><strong>Zipcode :</strong> ${shipping.zipcode}</p>
+    <p><strong>Address :</strong> ${customer.address}</p>
+    <p><strong>City :</strong> ${customer.city}</p>
+    <p><strong>State :</strong> ${customer.state}</p>
+    <p><strong>Zipcode :</strong> ${customer.zipcode}</p>
       `;
     parentElement.insertAdjacentHTML("beforeend", markup);
   };
@@ -83,12 +83,13 @@ const customerView = function (id) {
         `;
   };
 
-  const renderpendingOrders = function () {
+  const renderPendingOrders = function () {
     const parentElement = document.querySelector(".active-order-container");
     let markup = "";
     pendingOrders.forEach(async (order) => {
       const markup = await renderOrder(order);
       parentElement.insertAdjacentHTML("beforeend", markup);
+      addHandlerItems();
     });
   };
 
@@ -104,7 +105,7 @@ const customerView = function (id) {
 
   const addHandlerItems = function () {
     const btnsItem = document.querySelectorAll(".btn-view-items");
-
+    console.log(btnsItem);
     btnsItem.forEach((btn) =>
       btn.addEventListener("click", function (e) {
         const parentElement = e.target.closest(".order-card");
@@ -117,16 +118,15 @@ const customerView = function (id) {
   const init = async function () {
     console.log(id);
     customer = await fetchData(`/api/customer-detail/${id}`);
-    shipping = await fetchData(`/api/get-shipping-address/${customer.user}`);
     orders = await fetchData(`/api/get-all-orders/${id}`);
     products = await fetchData(`/api/product-list/`);
     pendingOrders = await fetchData(`/api/get-pending-orders/${id}`);
     orderHistory = await fetchData(`/api/get-completed-orders/${id}`);
     orderItems = await fetchData(`/api/order-item-list/`);
     orderItems.filter((item) => item.customer == id);
-    console.log(shipping);
+    console.log(customer, pendingOrders, orderHistory);
     renderShipping();
-    renderpendingOrders();
+    renderPendingOrders();
     renderOrderHistory();
   };
   init();

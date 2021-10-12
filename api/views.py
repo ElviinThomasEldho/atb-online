@@ -255,7 +255,7 @@ def getOrderItemsByOrder(request, pk):
 @api_view(['GET'])
 def getActiveOrdersByCustomer(request, pk):
     customer = Customer.objects.get(id=pk)
-    orders = customer.order_set.filter(paymentStatus=False)
+    orders = customer.order_set.filter(paymentStatus=True, deliveryStatus=False)
     serializer = OrderSerializer(orders, many=True)
     print(serializer.data)
 
@@ -264,7 +264,7 @@ def getActiveOrdersByCustomer(request, pk):
 @api_view(['GET'])
 def getCompletedOrdersByCustomer(request, pk):
     customer = Customer.objects.get(id=pk)
-    orders = customer.order_set.filter(paymentStatus=True)
+    orders = customer.order_set.filter(paymentStatus=True,deliveryStatus=True)
     serializer = OrderSerializer(orders, many=True)
     print(serializer.data)
 
