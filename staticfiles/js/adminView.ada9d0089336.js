@@ -43,7 +43,6 @@ const productView = async function () {
   };
 
   const addProduct = function () {
-    console.log("Add Product");
     formAddProduct.classList.remove("hidden");
     formAddProduct.addEventListener("submit", function (e) {
       closeModal();
@@ -52,10 +51,8 @@ const productView = async function () {
   };
 
   const editProduct = function (product) {
-    console.log("Edit Product", product);
     formEditProduct.classList.remove("hidden");
     formEditProduct.action = `/admin-panel/edit-product/${product.id}/`;
-    console.log(product);
     formEditProduct.querySelector("#id_name").value = product.name;
     formEditProduct.querySelector("#id_category").value = product.category;
     formEditProduct.querySelector("#id_desc").value = product.desc;
@@ -70,13 +67,10 @@ const productView = async function () {
   };
 
   const deleteProduct = function (product) {
-    console.log("Edit Product", product);
-
     window.location.href = `/admin-panel/delete-product/${product.id}/`;
   };
 
   const updateStock = function () {
-    console.log("Update Stock");
     formUpdateStock.classList.remove("hidden");
     const select = formUpdateStock.querySelector("#product");
     let markup = "";

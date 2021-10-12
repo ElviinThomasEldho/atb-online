@@ -105,18 +105,15 @@ const customerView = function (id) {
 
   const addHandlerItems = function () {
     const btnsItem = document.querySelectorAll(".btn-view-items");
-    console.log(btnsItem);
     btnsItem.forEach((btn) =>
       btn.addEventListener("click", function (e) {
         const parentElement = e.target.closest(".order-card");
         parentElement.querySelector(".order-items").classList.toggle("hidden");
-        console.log(parentElement);
       })
     );
   };
 
   const init = async function () {
-    console.log(id);
     customer = await fetchData(`/api/customer-detail/${id}`);
     orders = await fetchData(`/api/get-all-orders/${id}`);
     products = await fetchData(`/api/product-list/`);
@@ -124,7 +121,6 @@ const customerView = function (id) {
     orderHistory = await fetchData(`/api/get-completed-orders/${id}`);
     orderItems = await fetchData(`/api/order-item-list/`);
     orderItems.filter((item) => item.customer == id);
-    console.log(customer, pendingOrders, orderHistory);
     renderShipping();
     renderPendingOrders();
     renderOrderHistory();

@@ -21,7 +21,6 @@ const closeModal = function () {
 };
 
 export const renderNotification = async function (productID, quantity) {
-  console.log("Render Notification");
   const product = await fetchData(`/api/product-detail/${productID}`);
   const parentContainer = document.querySelector(".notification-container");
   const markup = `<div class="notification">
@@ -30,7 +29,6 @@ export const renderNotification = async function (productID, quantity) {
   added to cart</p></div>`;
   parentContainer.insertAdjacentHTML("afterbegin", markup);
   const notification = parentContainer.querySelector(".notification");
-  console.log(notification);
   setTimeout(function () {
     notification.style.opacity = 0;
   }, 2000);
@@ -49,7 +47,6 @@ export const renderOutOfStock = async function (productID) {
   is out of stock</p></div>`;
   parentContainer.insertAdjacentHTML("afterbegin", markup);
   const notification = parentContainer.querySelector(".notification");
-  console.log(notification);
   setTimeout(function () {
     notification.style.opacity = 0;
   }, 2000);
@@ -68,7 +65,6 @@ export const renderStockLeft = async function (productID) {
   is left in stock</p></div>`;
   parentContainer.insertAdjacentHTML("afterbegin", markup);
   const notification = parentContainer.querySelector(".notification");
-  console.log(notification);
   setTimeout(function () {
     notification.style.opacity = 0;
   }, 2000);

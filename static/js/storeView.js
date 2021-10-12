@@ -139,7 +139,6 @@ const storeView = async function (length = 0) {
   };
 
   const sortProducts = function (criteria) {
-    console.log(criteria);
     if (criteria == "high-to-low") {
       let cards = document.querySelectorAll(".product-card");
       cards = Array.from(cards);
@@ -151,7 +150,6 @@ const storeView = async function (length = 0) {
       });
       parentContainer.innerHTML = "";
       cards.forEach((product) => {
-        console.log(product);
         parentContainer.insertAdjacentElement("beforeend", product);
       });
     }
@@ -166,7 +164,6 @@ const storeView = async function (length = 0) {
       });
       parentContainer.innerHTML = "";
       cards.forEach((product) => {
-        console.log(product);
         parentContainer.insertAdjacentElement("beforeend", product);
       });
     }
@@ -174,7 +171,6 @@ const storeView = async function (length = 0) {
 
   const categorizeProducts = function (category) {
     category.toLowerCase();
-    console.log(category);
     if (category == "all") {
       render(products);
       return;

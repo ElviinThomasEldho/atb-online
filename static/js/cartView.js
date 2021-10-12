@@ -6,7 +6,6 @@ const cartView = async function () {
 
   const getCart = async function () {
     orderItems = await fetchData(`/api/get-cart/${userID}`);
-    console.log(orderItems);
   };
 
   const generateMarkup = function (item, product) {
@@ -117,7 +116,6 @@ const cartView = async function () {
     await getCart();
 
     parentContainer.innerHTML = "";
-    console.log(orderItems);
     if (orderItems.length > 0) {
       await orderItems.forEach(async (item) => {
         const product = await fetchData(`/api/product-detail/${item.product}`);
@@ -125,13 +123,11 @@ const cartView = async function () {
           "beforeend",
           generateMarkup(item, product)
         );
-        console.log("Cart Rendered");
         addHandlerUpdateQuantity();
         renderTotalPrice();
         addHandlerClearCart();
       });
     } else {
-      console.log("cart empty");
       const markup = `
           <p>Your CART is empty</p>
       `;
@@ -147,7 +143,6 @@ const cartView = async function () {
         const itemID = e.target.closest(".cart-item").dataset.itemId;
 
         const item = await fetchData(`/api/order-item-detail/${itemID}`);
-        console.log(func, item);
         await updateQuantity(func, item);
       });
     });

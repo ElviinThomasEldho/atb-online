@@ -33,7 +33,6 @@ const orderView = function (id) {
   };
 
   const init = async function () {
-    console.log(id);
     order = await fetchData(`/api/order-detail/${id}/`);
     customer = await fetchData(`/api/customer-detail/${order.customer}/`);
     orderItems = await fetchData(`/api/get-order-items/${order.id}/`);

@@ -9,7 +9,6 @@ const CheckoutView = async () => {
 
   const getShippingAddress = async function () {
     const customer = await fetchData(`/api/get-customer/${id}`);
-    console.log(customer);
     return customer;
   };
 
@@ -27,8 +26,6 @@ const CheckoutView = async () => {
   const addShippingAddress = async function (data) {
     const order = await fetchData(`/api/get-order/${id}`);
     const customer = await fetchData(`/api/get-customer/${id}`);
-
-    console.log(order, customer);
 
     customer.address = data.address;
     customer.city = data.city;
@@ -72,7 +69,6 @@ const CheckoutView = async () => {
     const total = itemTotals
       .map((el) => +el.textContent.slice(1))
       .reduce((total, price) => total + price, 0);
-    console.log(total);
     const textTotal = document.querySelector(".total-price");
     textTotal.textContent = `₹${total}`;
   };
@@ -82,7 +78,6 @@ const CheckoutView = async () => {
     const total = itemTotals
       .map((el) => +el.textContent)
       .reduce((total, quantity) => total + quantity, 0);
-    console.log(total);
     const textTotal = document.querySelector(".total-quantity");
     textTotal.textContent = total;
   };

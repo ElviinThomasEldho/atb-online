@@ -43,7 +43,6 @@ const productView = async function () {
   };
 
   const addProduct = function () {
-    console.log("Add Product");
     formAddProduct.classList.remove("hidden");
     formAddProduct.addEventListener("submit", function (e) {
       closeModal();
@@ -52,10 +51,8 @@ const productView = async function () {
   };
 
   const editProduct = function (product) {
-    console.log("Edit Product", product);
     formEditProduct.classList.remove("hidden");
     formEditProduct.action = `/admin-panel/edit-product/${product.id}/`;
-    console.log(product);
     formEditProduct.querySelector("#id_name").value = product.name;
     formEditProduct.querySelector("#id_category").value = product.category;
     formEditProduct.querySelector("#id_desc").value = product.desc;
@@ -72,13 +69,10 @@ const productView = async function () {
   };
 
   const deleteProduct = function (product) {
-    console.log("Edit Product", product);
-
     window.location.href = `/admin-panel/delete-product/${product.id}/`;
   };
 
   const updateStock = function () {
-    console.log("Update Stock");
     formUpdateStock.classList.remove("hidden");
     const select = formUpdateStock.querySelector("#product");
     let markup = "";
@@ -92,7 +86,6 @@ const productView = async function () {
       e.preventDefault();
       const dataArr = [...new FormData(this)];
       const data = Object.fromEntries(dataArr);
-      console.log(data);
 
       if (data.function == "add")
         window.location.href = `add-stock/${data.product}/${data.stock}/`;
@@ -110,7 +103,6 @@ const productView = async function () {
 
   const addHandlerEditProduct = function () {
     const btnEditProducts = document.querySelectorAll(".btn-product-edit");
-    console.log(btnEditProducts);
     btnEditProducts.forEach((btn) =>
       btn.addEventListener("click", async function (e) {
         const id = e.target.closest(".product-row").dataset.product;
@@ -188,8 +180,6 @@ const customerView = async function () {
   const customers = await fetchData("/api/customer-list/");
 
   const deleteCustomer = function (customer) {
-    console.log("Edit Customer", customer);
-
     window.location.href = `/admin-panel/delete-customer/${customer.id}/`;
   };
 
@@ -299,7 +289,6 @@ const orderView = async function () {
       order.customer = await fetchData(
         `/api/customer-detail/${order.customer}/`
       );
-      console.log(order);
     });
     render();
   };
