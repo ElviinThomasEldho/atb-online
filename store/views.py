@@ -109,7 +109,7 @@ def payment(request,pk):
             'INDUSTRY_TYPE_ID': 'Retail',
             'WEBSITE': 'WEBSTAGING',
             'CHANNEL_ID': 'WEB',
-            'CALLBACK_URL':'http://127.0.0.1:8000/payment-status/',
+            'CALLBACK_URL':'https://atb-online.herokuapp.com/payment-status/',
             
     }
 
