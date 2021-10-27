@@ -5,6 +5,7 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.core.mail import send_mail
+from ecommerce.settings import MERCHANT_KEY
 
 from store.decorators import authenticated_user
 
@@ -19,9 +20,44 @@ from paytm import checksum
 
 from django.views.decorators.csrf import csrf_exempt
 
-MERCHANTKEY = 'kbzk1DSbJiV_O3p5'
+import os
+from django.conf import settings
+from django.views.generic import View
+from django.template.loader import get_template
+from ecommerce.utils import render_to_pdf
+from xhtml2pdf import pisa
+from django.contrib.staticfiles import finders
+
+MERCHANTKEY = settings.MERCHANT_KEY
 
 # Create your views here.
+def link_callback(uri, rel):
+    result = finders.find(uri)
+    if result:
+        if not isinstance(result, (list, tuple)):
+            result = [result]
+        result = list(os.path.realpath(path) for path in result)
+        path = result[0]
+    else:
+        sUrl = settings.STATIC_URL        # Typically /static/
+        sRoot = settings.STATIC_ROOT      # Typically /home/userX/project_static/
+        mUrl = settings.MEDIA_URL         # Typically /media/
+        mRoot = settings.MEDIA_ROOT       # Typically /home/userX/project_static/media/
+
+        if uri.startswith(mUrl):
+            path = os.path.join(mRoot, uri.replace(mUrl, ""))
+        elif uri.startswith(sUrl):
+            path = os.path.join(sRoot, uri.replace(sUrl, ""))
+        else:
+            return uri
+
+    # make sure that file exists
+    if not os.path.isfile(path):
+        raise Exception(
+            'media URI must start with %s or %s' % (sUrl, mUrl)
+        )
+    return path
+
 def home(request):
 
     context = {
@@ -66,14 +102,15 @@ def payment(request,pk):
     amount = order.get_cart_total
     param_dict={
 
-            'MID': 'WorldP64425807474247',
+            'MID': settings.MERCHANT_ID,
             'ORDER_ID': str(order.id),
             'TXN_AMOUNT': str(amount),
             'CUST_ID': order.customer.email,
             'INDUSTRY_TYPE_ID': 'Retail',
             'WEBSITE': 'WEBSTAGING',
             'CHANNEL_ID': 'WEB',
-            'CALLBACK_URL':'https://atb-online.herokuapp.com/payment-status/',
+            'CALLBACK_URL':'http://127.0.0.1:8000/payment-status/',
+            
     }
 
     param_dict['CHECKSUMHASH'] = checksum.generate_checksum(param_dict, MERCHANTKEY)
@@ -346,3 +383,30 @@ def paymentStatus(request):
 
 
     return render(request, 'store/paytmstatus.html',{'response':response_dict})
+
+
+@authenticated_user
+def printReceipt(request):
+
+    user = request.user
+    customer = user.customer
+    order = Order.objects.filter(customer=customer, paymentStatus=True)[0]
+    items = order.orderitem_set.all()
+
+    context = {
+        'customer': customer,
+        'order': order,
+        'items': items,
+    }
+
+    template_path = 'store/receipt.html'
+    response = HttpResponse(content_type='application/pdf')
+    # response['Content-Disposition'] = 'attachment; filename="Order-Receipt.pdf'
+    response['Content-Disposition'] = 'filename="Order-Receipt.pdf'
+    template = get_template(template_path)
+    html = template.render(context)
+    pisa_status = pisa.CreatePDF(
+        html, dest=response, link_callback=link_callback)
+    if pisa_status.err:
+        return HttpResponse('We had some errors <pre>' + html + '</pre>')
+    return response

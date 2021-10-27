@@ -153,3 +153,6 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'contact.atbonline@gmail.com'
 EMAIL_HOST_PASSWORD = 'vlcqbngjvbspcbzi'
+
+MERCHANT_ID = "Qsteeg02421905337095"
+MERCHANT_KEY = "k_@JTo1zmNPSjemV"

@@ -1,0 +1,173 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&family=Poppins:wght@300&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+
+    <link rel="shortcut icon" href="media/logo.png" type="image/x-icon">
+
+    <style>
+        * {
+            font-size: 18px;
+        }
+
+        body {
+            padding: 0px;
+            margin: 0;
+            display: flex;
+            flex-flow: column nowrap;
+            justify-content: space-around;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4 {
+            font-weight: bold;
+        }
+
+        h1 {
+            font-size: 36px;
+            color: rgb(84, 209, 40);
+        }
+
+        h2 {
+            font-size: 24px;
+        }
+
+        h3 {
+            font-size: 18px;
+            color: rgb(84, 209, 40)
+        }
+
+        .col {
+            display: flex;
+            flex-flow: column wrap;
+            justify-content: space-between;
+            align-content: space-around;
+            text-align: right;
+            width: 100%;
+        }
+
+        .row {
+            /* width: 100%; */
+            display: flex;
+            flex-flow: row nowrap;
+            align-items: center;
+            height: 100%;
+        }
+
+        .title {
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .text {
+            font-size: 12px;
+        }
+
+        .footer {
+            float: bottom;
+        }
+
+        td {
+            text-align: center;
+        }
+    </style>
+
+    <title>Annapoorneswari Tasty Buds | Order Receipt</title>
+</head>
+
+<body>
+    <!-- <img src="static/images/logo.png" alt="Logo" class="logo"> -->
+    <!-- <h1>ATB</h1> -->
+    <p style="color: white;">{% static 'images/logo.png' %}</p>
+    <table>
+        <tbody>
+            <tr>
+                <td>
+                    <!-- <img src="media/{{ tr.profilePicture }}" alt="Profile Picture" class="profile-picture"
+                        height="300px"> -->
+                    <h1>ATB</h1>
+                </td>
+                <td>
+                    <h2>Order Receipt</h2>
+                    <h3>ID : {{ order.id }}</h3>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <hr>
+
+    <h3>Personal Details</h3>
+    <table>
+        <tbody>
+            <tr>
+                <td class="title">Full Name</td>
+                <td class="text">{{ customer.name }}</td>
+                <td class="title">Email Address</td>
+                <td class="text">{{ customer.email }}</td>
+            </tr>
+        </tbody>
+    </table>
+    <hr>
+
+    <h3>Shipping Address</h3>
+    <table>
+        <tbody>
+            <tr>
+                <td class="title">Address</td>
+                <td class="text">{{ customer.address }}</td>
+                <td class="title">City</td>
+                <td class="text">{{ customer.city }}</td>
+            </tr>
+            <tr>
+                <td class="title">State</td>
+                <td class="text">{{ customer.state }}</td>
+                <td class="title">Zipcode</td>
+                <td class="text">{{ customer.zipcode }}</td>
+            </tr>
+        </tbody>
+    </table>
+    <hr>
+
+    <h3>Order Items</h3>
+    <table>
+        <thead>
+            <th>ID</th>
+            <th>Product</th>
+            <th>Size</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Total Price</th>
+        </thead>
+        <tbody>
+            {% for item in items %}
+            <tr>
+                <td>{{item.product.id}}</td>
+                <td style="width: 20%;">{{item.product.name}}</td>
+                <td>{{item.product.quantity}} g</td>
+                <td>{{item.quantity}}</td>
+                <td>Rs. {{item.product.price}}</td>
+                <td>Rs. {{item.get_total}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <hr>
+    </div>
+    </div>
+
+
+</body>
+
+</html>

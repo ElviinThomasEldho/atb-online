@@ -22,19 +22,19 @@
                         {% csrf_token %}
                         <label for="address" class="address">
                             Address<br>
-                            <textarea name="address" id="address" cols="40" rows="3"></textarea><br>
+                            <textarea required name="address" id="address" cols="40" rows="3"></textarea><br>
                         </label>
                         <label for="city" class="city">
                             City<br>
-                            <input type="text" name="city" id="city"><br>
+                            <input required type="text" name="city" id="city"><br>
                         </label>
                         <label for="state" class="state">
                             State<br>
-                            <input type="text" name="state" id="state"><br>
+                            <input required type="text" name="state" id="state"><br>
                         </label>
                         <label for="pincode" class="pincode">
                             Pincode<br>
-                            <input type="text" name="pincode" id="pincode"><br>
+                            <input required type="text" name="pincode" id="pincode"><br>
                         </label>
                         <hr class="hr-dark">
                         <button class="btn btn-pay" type="submit">Continue to Payment</button>
