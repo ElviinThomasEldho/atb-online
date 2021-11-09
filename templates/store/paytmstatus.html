@@ -9,7 +9,6 @@
 <section class="hero section-form" style="background-image: url({% static 'img/hero-background.png'%});">
     <form class="form" method="POST" action="">
         <div class="container">
-            {{response}}
             <div class="col my-4">
                 <h2>Payment status regarding your order Id {{response.ORDERID}}</h2>
                 {% if response.RESPCODE == '01' %}

@@ -24,8 +24,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv("SECRET_KEY", get_random_secret_key())
-# SECRET_KEY = get_random_secret_key()
+# SECRET_KEY = os.getenv("SECRET_KEY", get_random_secret_key())
+SECRET_KEY = "bc)#$z=6v76x=jp8yog&m@8kflmk$l22pnxb(n@#z-k(u6*!h)"
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = os.getenv("DEBUG", "False") == "True"
@@ -93,7 +93,7 @@ DATABASES = {
 }
 
 
-DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
+# DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
 
 
 # Password validation
@@ -156,3 +156,14 @@ EMAIL_HOST_PASSWORD = 'vlcqbngjvbspcbzi'
 
 MERCHANT_ID = "Qsteeg02421905337095"
 MERCHANT_KEY = "k_@JTo1zmNPSjemV"
+
+
+AWS_ACCESS_KEY_ID = "AKIAWZSESBVXLUY5JTMR"
+AWS_SECRET_ACCESS_KEY = "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"
+AWS_STORAGE_BUCKET_NAME = "social-vision-bucket"
+AWS_S3_SIGNATURE_VERSION = 's3v4'
+AWS_S3_REGION_NAME = "ap-south-1"
+AWS_S3_FILE_OVERWRITE = False       
+AWS_DEFAULT_ACL = None
+AWS_S3_VERIFY = True
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage' 

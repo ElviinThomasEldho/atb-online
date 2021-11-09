@@ -1,3 +1,4 @@
+from uuid import uuid4
 from django.http import response
 from django.http.response import HttpResponse
 from api.views import customerCreate
@@ -13,6 +14,7 @@ from .forms import RegisterForm
 from api.forms import *
 from .decorators import *
 from api.models import Customer, Order, OrderItem
+import hashlib
 
 from django.contrib.auth.models import User
 
@@ -100,16 +102,17 @@ def checkout(request):
 def payment(request,pk):
     order = Order.objects.get(id=pk)
     amount = order.get_cart_total
+    order.transaction_id = str(uuid4())
+    order.save()
     param_dict={
-
             'MID': settings.MERCHANT_ID,
-            'ORDER_ID': str(order.id),
+            'ORDER_ID': str(order.transaction_id),
             'TXN_AMOUNT': str(amount),
             'CUST_ID': order.customer.email,
             'INDUSTRY_TYPE_ID': 'Retail',
             'WEBSITE': 'WEBSTAGING',
             'CHANNEL_ID': 'WEB',
-            'CALLBACK_URL':'https://atb-online.herokuapp.com/payment-status/',
+            'CALLBACK_URL':'http://127.0.0.1:8000/payment-status/',
             
     }
 
@@ -309,7 +312,6 @@ def updateDeliveryStatus(request, pk):
     return redirect('/admin-panel/view-order/{id}/'.format(id=order.id))
     
 @csrf_exempt
-@authenticated_user
 def paymentStatus(request):
 
     form = request.POST
@@ -324,13 +326,12 @@ def paymentStatus(request):
     print(response_dict)
     if verify:
         if response_dict['RESPCODE'] == '01':
-            print('Order Successful')
-                
-            user = request.user
-            customer = user.customer
+            print('Order Successful',response_dict)
 
-            order = Order.objects.get(customer=customer, paymentStatus=False)
+            order = Order.objects.get(transaction_id=response_dict['ORDERID'])
             order.paymentStatus = True
+            order.transaction_id = response_dict['TXNID']
+            order.save()
             items = order.orderitem_set.all()
             for item in items:
                 item.product.virtualStock -= item.quantity
@@ -339,7 +340,7 @@ def paymentStatus(request):
             # order.save()
 
             subject = 'New Order Placed'
-            message = 'Hi Annapoorneswari Tasty Buds,\nYou have recieved a new Order from {name} for the following items : \nS.No.  |  Product  |  Quantity | Total'.format(name=customer.name)
+            message = 'Hi Annapoorneswari Tasty Buds,\nYou have recieved a new Order from {name} for the following items : \nS.No.  |  Product  |  Quantity | Total\n'.format(name=order.customer.name)
 
             itemText = ''
             itemTotal = 0
@@ -356,11 +357,11 @@ def paymentStatus(request):
             itemText += 'Total Bill Amount : {total}'.format(total = priceTotal)
             message += itemText
 
-            send_mail(subject, message, 'contact.atbonline@gmail.com', 'annapoorneswaritastybuds@gmail.com')
+            send_mail(subject, message, 'contact.atbonline@gmail.com', ['annapoorneswaritastybuds@gmail.com'])
 
             
             subject = 'Order Invoice'
-            message = 'Hi {name},\nWe have recieved your Order for the following items : \nS.No.  |  Product  |  Quantity | Total'.format(name=customer.name)
+            message = 'Hi {name},\nWe have recieved your Order for the following items : \nS.No.  |  Product  |  Quantity | Total\n'.format(name=order.customer.name)
 
             itemText = ''
             itemTotal = 0
@@ -377,7 +378,7 @@ def paymentStatus(request):
             itemText += 'Total Bill Amount : {total}'.format(total = priceTotal)
             message += itemText
 
-            send_mail(subject, message, 'contact.atbonline@gmail.com', customer.email)
+            send_mail(subject, message, 'contact.atbonline@gmail.com', [order.customer.email])
         else: 
             print('Order was Not Successful : ',response_dict['RESPMSG'])
 

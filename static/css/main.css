@@ -59,9 +59,10 @@ img {
   box-shadow: 0 3rem 5rem rgba(0, 0, 0, 0.3);
 }
 
-.logo-text {
+.logo-image {
   font-family: "Lilita One", cursive;
   font-size: 24px;
+  width: 100%;
 }
 
 .nav-buttons {
