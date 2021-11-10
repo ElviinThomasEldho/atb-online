@@ -1,5 +1,6 @@
 nav {
   background: none;
+  position: static;
   background-color: var(--clr-dark);
 }
 
