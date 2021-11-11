@@ -20,7 +20,7 @@ DEBUG = os.getenv("DEBUG", "False") == "True"
 # DEBUG = True
 
 # ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS", "127.0.0.1,localhost").split(",")
-ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS", "127.0.0.1,localhost").split(",")
+ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS","https://atb-online-ao9iq.ondigitalocean.app/", "127.0.0.1,localhost").split(",")
 
 # Application definition
 
@@ -80,8 +80,8 @@ WSGI_APPLICATION = 'ecommerce.wsgi.application'
 #     }
 # }
 
-# DEVELOPMENT_MODE = os.getenv("DEVELOPMENT_MODE", "False") == "True"
-DEVELOPMENT_MODE = True
+DEVELOPMENT_MODE = os.getenv("DEVELOPMENT_MODE", "False") == "True"
+# DEVELOPMENT_MODE = True
 
 if DEVELOPMENT_MODE is True:
     DATABASES = {
@@ -158,8 +158,10 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'contact.atbonline@gmail.com'
 EMAIL_HOST_PASSWORD = 'vlcqbngjvbspcbzi'
 
-MERCHANT_ID = "Qsteeg02421905337095"
-MERCHANT_KEY = "k_@JTo1zmNPSjemV"
+MERCHANT_ID = os.getenv("MERCHANT_ID")
+MERCHANT_KEY = os.getenv("MERCHANT_KEY")
+# MERCHANT_ID = "Qsteeg02421905337095"
+# MERCHANT_KEY = "k_@JTo1zmNPSjemV"
 
 
 # AWS_ACCESS_KEY_ID = "AKIAWZSESBVXLUY5JTMR"
