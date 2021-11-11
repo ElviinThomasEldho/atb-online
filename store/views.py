@@ -411,3 +411,79 @@ def printReceipt(request):
     if pisa_status.err:
         return HttpResponse('We had some errors <pre>' + html + '</pre>')
     return response
+
+
+@authenticated_user
+def printDailyReport(request):
+
+    orders = Order.objects.filter(paymentStatus=True, date_ordered=date.today())
+
+    context = {
+        'orders': orders,
+    }
+
+    template_path = 'store/receipt.html'
+    response = HttpResponse(content_type='application/pdf')
+    # response['Content-Disposition'] = 'attachment; filename="Order-Receipt.pdf'
+    response['Content-Disposition'] = 'filename="Order-Receipt.pdf'
+    template = get_template(template_path)
+    html = template.render(context)
+    pisa_status = pisa.CreatePDF(
+        html, dest=response, link_callback=link_callback)
+    if pisa_status.err:
+        return HttpResponse('We had some errors <pre>' + html + '</pre>')
+    return response
+
+
+@authenticated_user
+def printMonthlyReport(request):
+
+    user = request.user
+    customer = user.customer
+    order = Order.objects.filter(customer=customer, paymentStatus=True)[0]
+    items = order.orderitem_set.all()
+
+    context = {
+        'customer': customer,
+        'order': order,
+        'items': items,
+    }
+
+    template_path = 'store/receipt.html'
+    response = HttpResponse(content_type='application/pdf')
+    # response['Content-Disposition'] = 'attachment; filename="Order-Receipt.pdf'
+    response['Content-Disposition'] = 'filename="Order-Receipt.pdf'
+    template = get_template(template_path)
+    html = template.render(context)
+    pisa_status = pisa.CreatePDF(
+        html, dest=response, link_callback=link_callback)
+    if pisa_status.err:
+        return HttpResponse('We had some errors <pre>' + html + '</pre>')
+    return response
+
+
+@authenticated_user
+def printAnnualReport(request):
+
+    user = request.user
+    customer = user.customer
+    order = Order.objects.filter(customer=customer, paymentStatus=True)[0]
+    items = order.orderitem_set.all()
+
+    context = {
+        'customer': customer,
+        'order': order,
+        'items': items,
+    }
+
+    template_path = 'store/receipt.html'
+    response = HttpResponse(content_type='application/pdf')
+    # response['Content-Disposition'] = 'attachment; filename="Order-Receipt.pdf'
+    response['Content-Disposition'] = 'filename="Order-Receipt.pdf'
+    template = get_template(template_path)
+    html = template.render(context)
+    pisa_status = pisa.CreatePDF(
+        html, dest=response, link_callback=link_callback)
+    if pisa_status.err:
+        return HttpResponse('We had some errors <pre>' + html + '</pre>')
+    return response

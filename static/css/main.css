@@ -440,6 +440,25 @@ td {
   text-align: center;
 }
 
+footer {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-around;
+  align-items: center;
+
+  padding-block: 10px;
+
+  color: var(--clr-neutral);
+  background-color: var(--clr-dark);
+  border-top: solid 2px var(--clr-primary);
+}
+
+footer a {
+  text-decoration: none;
+  margin: 10px;
+  /* font-weight: bold; */
+}
+
 @media screen and (max-width: 760px) {
   * {
     font-size: 14px;
