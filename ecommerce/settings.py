@@ -20,7 +20,7 @@ DEBUG = os.getenv("DEBUG", "False") == "True"
 # DEBUG = True
 
 # ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS", "127.0.0.1,localhost").split(",")
-ALLOWED_HOSTS = ["atb-online-ao9iq.ondigitalocean.app/", "127.0.0.1:8000"]
+ALLOWED_HOSTS = ["www.atbonline.in","atb-online-ao9iq.ondigitalocean.app/", "127.0.0.1:8000"]
 
 # Application definition
 
