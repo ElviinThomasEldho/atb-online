@@ -110,10 +110,9 @@ def payment(request,pk):
             'TXN_AMOUNT': str(amount),
             'CUST_ID': order.customer.email,
             'INDUSTRY_TYPE_ID': 'Retail',
-            'WEBSITE': 'WEBSTAGING',
+            'WEBSITE': 'DEFAULT',
             'CHANNEL_ID': 'WEB',
-            'CALLBACK_URL':'https://www.atbonline.in/payment-status/',
-            
+            'CALLBACK_URL':'https://www.atbonline.in/payment-status/',  
     }
 
     param_dict['CHECKSUMHASH'] = checksum.generate_checksum(param_dict, MERCHANTKEY)
