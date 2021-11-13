@@ -110,7 +110,7 @@ def payment(request,pk):
             'TXN_AMOUNT': str(amount),
             'CUST_ID': order.customer.email,
             'INDUSTRY_TYPE_ID': 'Retail',
-            'WEBSITE': 'DEFAULT',
+            'WEBSITE': 'WEBSTAGING',
             'CHANNEL_ID': 'WEB',
             'CALLBACK_URL':'https://www.atbonline.in/payment-status/',  
     }
