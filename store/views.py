@@ -112,8 +112,7 @@ def payment(request,pk):
             'INDUSTRY_TYPE_ID': 'Retail',
             'WEBSITE': 'DEFAULT',
             'CHANNEL_ID': 'WEB',
-            'CALLBACK_URL':'https://www.atbonline.in/payment-status/',
-            
+            'CALLBACK_URL':'https://www.atbonline.in/payment-status/',  
     }
 
     param_dict['CHECKSUMHASH'] = checksum.generate_checksum(param_dict, MERCHANTKEY)
