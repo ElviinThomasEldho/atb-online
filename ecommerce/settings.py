@@ -20,7 +20,7 @@ DEBUG = os.getenv("DEBUG", "False") == "True"
 # DEBUG = True
 
 # ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS", "127.0.0.1,localhost").split(",")
-ALLOWED_HOSTS = ["www.atbonline.in","atb-online-ao9iq.ondigitalocean.app", "127.0.0.1:8000"]
+ALLOWED_HOSTS = ["www.atbonline.in","atb-online-ao9iq.ondigitalocean.app", "127.0.0.1"]
 
 # Application definition
 
@@ -160,15 +160,8 @@ EMAIL_HOST_PASSWORD = 'vlcqbngjvbspcbzi'
 
 MERCHANT_ID = os.getenv("MERCHANT_ID")
 MERCHANT_KEY = os.getenv("MERCHANT_KEY")
-# MERCHANT_ID = "Qsteeg02421905337095"
-# MERCHANT_KEY = "k_@JTo1zmNPSjemV"
 
 
-# AWS_ACCESS_KEY_ID = "AKIAWZSESBVXLUY5JTMR"
-# AWS_SECRET_ACCESS_KEY = "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"
-# AWS_STORAGE_BUCKET_NAME = "social-vision-bucket"
-# AWS_S3_SIGNATURE_VERSION = 's3v4'
-# AWS_S3_REGION_NAME = "ap-south-1"
 AWS_ACCESS_KEY_ID = os.getenv("AWS_ACCESS_KEY_ID")
 AWS_SECRET_ACCESS_KEY = os.getenv("AWS_SECRET_ACCESS_KEY")
 AWS_STORAGE_BUCKET_NAME = os.getenv("AWS_STORAGE_BUCKET_NAME")
